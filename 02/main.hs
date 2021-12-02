@@ -7,16 +7,26 @@ import Data.List
 
 data BoatState = BoatState {
     depth :: Integer,
-    horizontal :: Integer
+    horizontal :: Integer,
+    aim :: Integer
 }
 
 data Instruction = String Integer
 
-reduceState state (operation, amount) = do
+reduceStatePart1 state (operation, amount) = do
     case operation of
         "up" -> state { depth = (depth state) - amount }
         "down" -> state { depth = (depth state) + amount }
         "forward" -> state { horizontal = (horizontal state) + amount }
+
+reduceStatePart2 state (operation, amount) = do
+    case operation of
+        "up" -> state { aim = (aim state) - amount }
+        "down" -> state { aim = (aim state) + amount }
+        "forward" -> state {
+            horizontal = (horizontal state) + amount,
+            depth = (depth state) + (aim state) * amount
+        }
 
 parseInstruction instructionStr = do
     let splitInstruction = split ' ' instructionStr
@@ -36,7 +46,10 @@ main = do
     let nonEmptyLines = filter ((> 2) . length) (lines input)
     let instructions = map parseInstruction nonEmptyLines
 
-    let initialState = BoatState 0 0
-    let finalState = foldl reduceState initialState instructions
-    let solution = computeSolution (finalState)
-    print solution
+    let finalStatePart1 = foldl reduceStatePart1 (BoatState 0 0 0) instructions
+    putStr "U-Boat position; Part 1: "
+    print (computeSolution finalStatePart1)
+
+    let finalStatePart2 = foldl reduceStatePart2 (BoatState 0 0 0) instructions
+    putStr "U-Boat position with aim; Part 2: "
+    print (computeSolution finalStatePart2)
