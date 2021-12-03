@@ -1,4 +1,4 @@
-# Advent of Code 2020
+# Advent of Code 2021
 ...with a different language on each day.
 
 To see how to run the solutions of each individual day, look at its main source file.
