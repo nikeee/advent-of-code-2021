@@ -19,6 +19,7 @@ class Point {
   }
 
   public function hashCode():Int return x + (y * 1000);
+  public function equals(other:Point) return this.x == other.x && this.y ==  other.y;
   public function toString() return '($x, $y)';
   public static function parse(value:String):Point {
     var split = value.split(",");
@@ -61,26 +62,39 @@ class Main {
 
     var part1 = countOverlaps(part1Map);
     Sys.println('Number of overlapping horizontal and vertical lines; Part 1: $part1');
+
+    var part2Map = new IntMap<IntMap<Int>>();
+    for(line in lines) {
+      drawLine(part2Map, line);
+    }
+
+    var part2 = countOverlaps(part2Map);
+    Sys.println('Number of overlapping lines; Part 2: $part2');
   }
 
   static function drawLine(map:IntMap<IntMap<Int>>, line:Line):Void {
-    if (line.start.x == line.end.x) {
-        var start = minInt(line.start.y, line.end.y);
-        var end = maxInt(line.start.y, line.end.y);
+    var leftPoint = line.start.x < line.end.x
+      ? line.start
+      : line.end;
 
-        for(y in (start...end + 1)) {
-          var p = new Point(line.start.x, y);
-          visitPoint(map, p);
-        }
-    } else if (line.start.y == line.end.y) {
-        var start = minInt(line.start.x, line.end.x);
-        var end = maxInt(line.start.x, line.end.x);
+    var rightPoint = line.start.x < line.end.x
+      ? line.end
+      : line.start;
 
-        for(x in (start...end + 1)) {
-          var p = new Point(x, line.start.y);
-          visitPoint(map, p);
-        }
+    // Because the lines are always in 45° angles, the increment must always be one of {-1, 0, 1}
+    // -> We can just use the sign of the delta of left and right
+    var xIncrement = sign(leftPoint.x - rightPoint.x);
+    var yIncrement = sign(leftPoint.y - rightPoint.y);
+
+    var currentPoint = leftPoint;
+    while(!currentPoint.equals(rightPoint)) {
+      visitPoint(map, currentPoint);
+      currentPoint = new Point(
+        currentPoint.x + xIncrement,
+        currentPoint.y + yIncrement
+      );
     }
+    visitPoint(map, rightPoint);
   }
 
   static function visitPoint(map:IntMap<IntMap<Int>>, p:Point):Void {
@@ -108,7 +122,8 @@ class Main {
     return overlaps;
   }
 
-  // Math.max/min only exists for Float, so we need to roll our own
+  // Math.max/min/sign only exists for Float, so we need to roll our own
   static function maxInt(a:Int, b:Int): Int return a > b ? a : b;
   static function minInt(a:Int, b:Int): Int return a < b ? a : b;
+  static function sign(a:Int): Int return a == 0 ? 0: (a < 0 ? 1 : -1);
 }
