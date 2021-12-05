@@ -16,3 +16,8 @@ Other years years:
 - [Solutions of 2020](https://github.com/nikeee/advent-of-code-2020)
 
 [More ideas for languages to use](https://github.com/nikeee/advent-of-code-2019).
+
+
+# Observations
+## Haxe
+Last year, the first time I used Haxe, it felt like Java with some extra syntax, but basically the same regarding the philosophy. It's seems that it's still like this. Also, basic stuff is missing, like a `Math.min/max/sign` for integers.
