@@ -23,3 +23,8 @@ Other years years:
 # Observations
 ## Haxe
 Last year, the first time I used Haxe, it felt like Java with some extra syntax, but basically the same regarding the philosophy. It's seems that it's still like this. Also, basic stuff is missing, like a `Math.min/max/sign` for integers.
+## R
+I like the idea of the [`~` operator in R](https://stackoverflow.com/questions/14976331).
+
+[When using purrr](https://coolbutuseless.github.io/2019/03/13/anonymous-functions-in-r-part-1/) and passing functions (or formulas) to a function `f`, you can access other named arguments of `f` inside the "lambda" function (function expression) or formula.
+
