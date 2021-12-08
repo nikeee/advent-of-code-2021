@@ -29,3 +29,5 @@ I like the idea of the [`~` operator in R](https://stackoverflow.com/questions/1
 
 [When using purrr](https://coolbutuseless.github.io/2019/03/13/anonymous-functions-in-r-part-1/) and passing functions (or formulas) to a function `f`, you can access other named arguments of `f` inside the "lambda" function (function expression) or formula.
 
+## Prolog
+Doing something in Prolog is _very_ different. It has been an interesting experience; would recommend 10/10. Implementing stuff feels like a giant [Query-By-Example](https://en.wikipedia.org/wiki/Query_by_Example) or a variation of the tuple calculus.
