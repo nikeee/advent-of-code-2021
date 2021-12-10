@@ -14,6 +14,7 @@ To see how to run the solutions of each individual day, look at its main source 
 | 7   | [The Treachery of Whales](https://adventofcode.com/2021/day/7) | [Link](07) | [R](https://en.wikipedia.org/wiki/R_(programming_language))             |                                                                      |
 | 8   | [Seven Segment Search](https://adventofcode.com/2021/day/8)    | [Link](08) | [Prolog](https://en.wikipedia.org/wiki/Prolog)                          | [CSP](https://en.wikipedia.org/wiki/Constraint_satisfaction_problem) |
 | 9   | [Smoke Basin](https://adventofcode.com/2021/day/9)             | [Link](09) | [Julia](https://en.wikipedia.org/wiki/Julia_(programming_language))     |                                                                      |
+| 10  | [Syntax Scoring](https://adventofcode.com/2021/day/10)         | [Link](10) | [Crystal](https://en.wikipedia.org/wiki/Crystal_(programming_language)) |                                                                      |
 
 Other years years:
 - [Solutions of 2019](https://github.com/nikeee/advent-of-code-2019)
@@ -37,3 +38,5 @@ Doing something in Prolog is _very_ different. It has been an interesting experi
 In Julia, functions that mutate state of their arguments have ([by convention only](https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention)) an exclamation mark in their name, for example `push!`, which is an interesting idea.
 
 I enjoyed using Julia and will definitely use it again, although it uses 1-based array indices.
+## Crystal
+Neat ideas: Functions that return boolean values have a name ending in `?`. Methods ending in `!` mutate the `this` object.
