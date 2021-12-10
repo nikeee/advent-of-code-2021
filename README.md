@@ -13,6 +13,7 @@ To see how to run the solutions of each individual day, look at its main source 
 | 6   | [Lanternfish](https://adventofcode.com/2021/day/6)             | [Link](06) | [Scala](https://en.wikipedia.org/wiki/Scala_(programming_language))     | Modeling exponential growth                                          |
 | 7   | [The Treachery of Whales](https://adventofcode.com/2021/day/7) | [Link](07) | [R](https://en.wikipedia.org/wiki/R_(programming_language))             |                                                                      |
 | 8   | [Seven Segment Search](https://adventofcode.com/2021/day/8)    | [Link](08) | [Prolog](https://en.wikipedia.org/wiki/Prolog)                          | [CSP](https://en.wikipedia.org/wiki/Constraint_satisfaction_problem) |
+| 9   | [Smoke Basin](https://adventofcode.com/2021/day/9)             | [Link](09) | [Julia](https://en.wikipedia.org/wiki/Julia_(programming_language))     |                                                                      |
 
 Other years years:
 - [Solutions of 2019](https://github.com/nikeee/advent-of-code-2019)
