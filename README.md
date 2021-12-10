@@ -32,3 +32,8 @@ I like the idea of the [`~` operator in R](https://stackoverflow.com/questions/1
 
 ## Prolog
 Doing something in Prolog is _very_ different. It has been an interesting experience; would recommend 10/10. Implementing stuff feels like a giant [Query-By-Example](https://en.wikipedia.org/wiki/Query_by_Example) or a variation of the tuple calculus.
+
+## Julia
+In Julia, functions that mutate state of their arguments have ([by convention only](https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention)) an exclamation mark in their name, for example `push!`, which is an interesting idea.
+
+I enjoyed using Julia and will definitely use it again, although it uses 1-based array indices.
