@@ -98,13 +98,23 @@ module Program
     sub Main(args as string())
         dim initialState = ReadInput()
 
-        dim state = initialState
+        dim part1State = initialState
         dim flashes as integer = 0
         for currentStep = 1 to 100
-            dim res = DeriveNextState(state)
+            dim res = DeriveNextState(part1State)
             flashes += res.flashCount
-            state = res.nextState
+            part1State = res.nextState
         next
         Console.WriteLine($"Number of flashed octopus after 100 steps; Part 1: {flashes}")
+
+        dim part2State = initialState
+        dim stepCount = 1
+        while true
+            dim res = DeriveNextState(part2State)
+            part2State = res.nextState
+            if res.flashCount = part2State.Length then exit while
+            stepCount += 1
+        end while
+        Console.WriteLine($"Number of steps afer which the octopus synchronized; Part 2: {stepCount}")
     end sub
 end module
