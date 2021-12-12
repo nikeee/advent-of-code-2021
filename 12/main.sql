@@ -29,9 +29,49 @@ with recursive
         join nodes n ON e.source = n.x
         -- if a cave is large, it can ocurr multiple times
         -- if not, it must only occurr once
-        where (upper(dest) = dest or not (path like '%' || dest || '%'))
-        and not path like '%,end' -- a valid path always ands in 'end'
+        where
+            source <> 'end' and dest <> 'start'
+            and
+            (upper(dest) = dest or not (path like '%' || dest || '%'))
 )
 select 'Number of paths according to rules; Part 1: ' || count(*) as solution
+from nodes
+where x = 'end';
+
+create temp table small_cave as
+select distinct source as id
+    from edge
+    where
+        source = lower(source)
+        and source <> 'start'
+        and source <> 'end';
+
+with recursive
+    nodes(x, path) as (
+    select 'start', 'start'
+    union
+        select e.dest, path || ',' || e.dest
+        from edge e
+        join nodes n ON e.source = n.x
+        where
+            source <> 'end' and dest <> 'start'
+            and
+            (
+                upper(dest) = dest
+                or
+                not (path like '%' || dest || '%')
+                -- this basically checks if there is already a small cave that occurrs twice
+                -- if not, this cave can be used twice
+                or not exists (
+                    select id
+                    from small_cave
+                    where
+                        -- hack to count the ocurrences of a string in pure SQL
+                        -- ref: https://stackoverflow.com/a/54406626
+                        ((length(path) - length(replace(path, id, ''))) / length(id)) >= 2
+                )
+            )
+)
+select 'Number of paths with modified rules; Part 2: ' || count(*) as solution
 from nodes
 where x = 'end';
