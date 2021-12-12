@@ -16,6 +16,7 @@ To see how to run the solutions of each individual day, look at its main source 
 | 9   | [Smoke Basin](https://adventofcode.com/2021/day/9)             | [Link](09) | [Julia](https://en.wikipedia.org/wiki/Julia_(programming_language))     |                                                                        |
 | 10  | [Syntax Scoring](https://adventofcode.com/2021/day/10)         | [Link](10) | [Crystal](https://en.wikipedia.org/wiki/Crystal_(programming_language)) |                                                                        |
 | 11  | [Dumbo Octopus](https://adventofcode.com/2021/day/11)          | [Link](11) | [VB.NET](https://en.wikipedia.org/wiki/Visual_Basic_.NET)               | [Cellular Automaton](https://en.wikipedia.org/wiki/Cellular_automaton) |
+| 12  | [Passage Pathing](https://adventofcode.com/2021/day/12)        | [Link](12) | [SQL](https://en.wikipedia.org/wiki/SQLite)                             | Number of paths in a graph                                             |
 
 Other years years:
 - [Solutions of 2019](https://github.com/nikeee/advent-of-code-2019)
