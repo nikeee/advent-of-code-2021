@@ -17,6 +17,7 @@ To see how to run the solutions of each individual day, look at its main source 
 | 10  | [Syntax Scoring](https://adventofcode.com/2021/day/10)         | [Link](10) | [Crystal](https://en.wikipedia.org/wiki/Crystal_(programming_language)) |                                                                        |
 | 11  | [Dumbo Octopus](https://adventofcode.com/2021/day/11)          | [Link](11) | [VB.NET](https://en.wikipedia.org/wiki/Visual_Basic_.NET)               | [Cellular Automaton](https://en.wikipedia.org/wiki/Cellular_automaton) |
 | 12  | [Passage Pathing](https://adventofcode.com/2021/day/12)        | [Link](12) | [SQL](https://en.wikipedia.org/wiki/SQLite)                             | Number of paths in a graph                                             |
+| 13  | [Transparent Origami](https://adventofcode.com/2021/day/13)    | [Link](13) | [Nim](https://en.wikipedia.org/wiki/Nim_(programming_language))         | Folding a sheet of paper                                               |
 
 Other years years:
 - [Solutions of 2019](https://github.com/nikeee/advent-of-code-2019)
