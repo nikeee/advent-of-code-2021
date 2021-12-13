@@ -8,10 +8,10 @@
 
 # d run --rm -it -v $(pwd):/src --entrypoint /bin/bash nimlang/nim
 
-import std/sugar
-import std/strutils
-import std/sequtils
-import std/sets
+import sets
+import sugar
+import strutils
+import sequtils
 
 var lines = newSeq[string]()
 for line in stdin.lines:
@@ -85,5 +85,20 @@ func foldSheet(sheet: SheetDefinition, instruction: string): SheetDefinition =
     assert false
     return sheet
 
-let solution = foldSheet(initialSheet, instructions[0])
-echo "Number of dots after first fold; Part 1: ", solution.data.len
+let part1Solution = foldSheet(initialSheet, instructions[0])
+echo "Number of dots after first fold; Part 1: ", part1Solution.data.len
+
+proc printSheet(sheet: SheetDefinition): void =
+    for y in 0 ..< sheet.height:
+        for x in 0 ..< sheet.width:
+            stdout.write (if (x, y) in sheet.data: '#' else: ' ')
+        stdout.write "\n"
+
+let part2Solution = foldl(
+    instructions,
+    foldSheet(a, b),
+    initialSheet,
+)
+
+echo "Code that appears when folded the right way; Part 2:"
+printSheet(part2Solution)
