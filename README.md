@@ -41,5 +41,9 @@ Doing something in Prolog is _very_ different. It has been an interesting experi
 In Julia, functions that mutate state of their arguments have ([by convention only](https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention)) an exclamation mark in their name, for example `push!`, which is an interesting idea.
 
 I enjoyed using Julia and will definitely use it again, although it uses 1-based array indices.
+
 ## Crystal
 Neat ideas: Functions that return boolean values have a name ending in `?`. Methods ending in `!` mutate the `this` object.
+
+## Nim
+Python-inspired, compiled language with side-effect tracking. Functions (`func`) can be marked to have side-effects, which can ensure purity. I'll definitely use it again.
