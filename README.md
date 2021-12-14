@@ -48,3 +48,6 @@ Neat ideas: Functions that return boolean values have a name ending in `?`. Meth
 
 ## Nim
 Python-inspired, compiled language with side-effect tracking. Functions (`func`) can be marked to have side-effects, which can ensure purity. I'll definitely use it again.
+
+## PHP
+PHP has gotten a lot better since the 5.x days, especially with type hints and a shorter syntax for anonymous functions.
