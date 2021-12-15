@@ -20,9 +20,41 @@ void main(List<String> arguments) async {
   var width = cave[0].length;
 
   var start = new Point(0, 0);
-  var end = new Point(width - 1, height - 1);
-  var cheapestPathCost = findCheapestPathCost(cave, width, height, start, end);
-  print('Risk of the path with the lowest risk; Part 1: $cheapestPathCost');
+  var endPart1 = new Point(width - 1, height - 1);
+  var cheapestPathCostPart1 = findCheapestPathCost(cave, width, height, start, endPart1);
+  print('Risk of the path with the lowest risk; Part 1: $cheapestPathCostPart1');
+
+  var part2Scaling = 5;
+  var part2Cave = exploreCave(cave, width, height, part2Scaling);
+  var part2Width = width * part2Scaling;
+  var part2Height = height * part2Scaling;
+
+  var endPart2 = new Point(part2Width - 1, part2Height - 1);
+  var cheapestPathCostPart2 = findCheapestPathCost(part2Cave, part2Width, part2Height, start, endPart2);
+  print('Risk of the path with the lowest risk in larger cave; Part 2: $cheapestPathCostPart2');
+}
+
+List<List<int>> exploreCave(List<List<int>> grid, int width, int height, [int scaleFactor = 5]) {
+  var largerGrid = List<List<int>>.empty(growable: true);
+
+  for (int y = 0; y < height * 5; ++y) {
+    var yInFirstTile = y % height;
+    var row = List<int>.filled(width * scaleFactor, -1);
+    largerGrid.add(row);
+
+    for (int x = 0; x < width * 5; ++x) {
+      var xInFirstTile = x % width;
+      var fileValueOffset = (x ~/ width) + (y ~/ height);
+
+      var originalValue = grid[yInFirstTile][xInFirstTile] - 1;
+      var thisValue = originalValue + fileValueOffset;
+      thisValue %= 9;
+      thisValue += 1;
+      largerGrid[y][x] = thisValue;
+    }
+  }
+
+  return largerGrid;
 }
 
 Iterable<Point> getNeighbors(Point pos, int width, int height) sync* {
@@ -104,4 +136,14 @@ class Point {
   bool operator ==(o) => o is Point && x == o.x && y == o.y;
   int get hashCode => Object.hash(x, y);
   String toString() => '(' + x.toString() + ', ' + y.toString() + ')';
+}
+
+// Function used only for debugging
+void printGrid(List<List<int>> grid, int width, int height) {
+  for (int y = 0; y < height; ++y) {
+    for (int x = 0; x < width; ++x) {
+      stdout.write(grid[y][x]);
+    }
+    print('');
+  }
 }
