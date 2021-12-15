@@ -52,3 +52,6 @@ Python-inspired, compiled language with side-effect tracking. Functions (`func`)
 
 ## PHP
 PHP has gotten a lot better since the 5.x days, especially with type hints and a shorter syntax for anonymous functions.
+
+## Dart
+Basically feels like Haxe (see above) done a couple of years later.
