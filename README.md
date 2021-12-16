@@ -20,6 +20,7 @@ To see how to run the solutions of each individual day, look at its main source 
 | 13  | [Transparent Origami](https://adventofcode.com/2021/day/13)     | [Link](13) | [Nim](https://en.wikipedia.org/wiki/Nim_(programming_language))         | Folding a sheet of paper                                               |
 | 14  | [Extended Polymerization](https://adventofcode.com/2021/day/14) | [Link](14) | [PHP](https://en.wikipedia.org/wiki/PHP)                                |                                                                        |
 | 15  | [Chiton](https://adventofcode.com/2021/day/15)                  | [Link](15) | [Dart](https://en.wikipedia.org/wiki/Dart_(programming_language))       | Cheapest path / A*                                                     |
+| 16  | [Packet Decoder](https://adventofcode.com/2021/day/16)          | [Link](16) | [Swift](https://en.wikipedia.org/wiki/Swift_(programming_language))     | Parsing binary data +  expression evaluation                           |
 
 Other years years:
 - [Solutions of 2019](https://github.com/nikeee/advent-of-code-2019)
