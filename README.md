@@ -56,3 +56,8 @@ PHP has gotten a lot better since the 5.x days, especially with type hints and a
 
 ## Dart
 Basically feels like Haxe (see above) done a couple of years later.
+
+## Swift
+It seems that stuff that once was deprecated actually will get removed entirely, which is a good thing. The bad thing is that a lot of stuff that one can find on StackOverflow just does not even compile. An unusual problem, but works. A lot of posts on SO contain solutions to multiple versions of Swift.
+
+Handling strings is a bit cumbersome due to the distinction between `Int`s and `String.Index`. But it seems to be necessary, considering unicode support. I ended up using and extending [a random extension to `String`](https://stackoverflow.com/a/26775912), which removed a lot of boilerplate code. I also considered switching to a `Character` array, but that also [changed a lot](https://stackoverflow.com/a/25921323) during the language evolution.
