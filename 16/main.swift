@@ -11,10 +11,65 @@ import Foundation
 let data = readLine(strippingNewline: true)!
 let bits = dataToBitString(data)
 
-let (_, versionSum) = processPacket(bits)
-print("Sum of packet versions; Part 1: \(versionSum)")
+let (_, rootPacket) = parsePacket(bits)
 
-func processPacket(_ bits: String) -> (Int, Int) {
+let part1Solution = computeVersionSum(rootPacket)
+print("Sum of packet versions; Part 1: \(part1Solution)")
+
+let part2Solution = evaluatePacketExpression(rootPacket)
+print("Evaluated expression described py packets; Part 2: \(part2Solution)")
+
+enum Packet {
+	case literal(_ version: Int, value: Int64)
+	// We could create a case for every package type, but since they are all pretty similar, we don't want to have a lot of boilerplate
+	case operational(_ version: Int, _ type: Action, subPackets: [Packet])
+}
+
+enum Action : Int {
+	case sum = 0
+	case product = 1
+	case min = 2
+	case max = 3
+	case gt = 5
+	case lt = 6
+	case eq = 7
+}
+
+func computeVersionSum(_ packet: Packet) -> Int {
+	switch packet {
+		case .literal(let version, _): return version
+		case .operational(let version, _, let subPackets):
+			return subPackets.reduce(
+					version,
+					{ x, packet in x + computeVersionSum(packet) }
+				)
+	}
+}
+
+func evaluatePacketExpression(_ packet: Packet) -> Int64 {
+	switch packet {
+		case .literal(_, let value): return value
+		case .operational(_, let type, let subPackets):
+			switch type {
+				case .sum:
+					return subPackets.reduce(0, { x, packet in x + evaluatePacketExpression(packet) })
+				case .product:
+					return subPackets.reduce(1, { x, packet in x * evaluatePacketExpression(packet) })
+				case .min:
+					return subPackets.map { evaluatePacketExpression($0) }.min()!
+				case .max:
+					return subPackets.map { evaluatePacketExpression($0) }.max()!
+				case .gt:
+					return evaluatePacketExpression(subPackets[0]) > evaluatePacketExpression(subPackets[1]) ? 1 : 0
+				case .lt:
+					return evaluatePacketExpression(subPackets[0]) < evaluatePacketExpression(subPackets[1]) ? 1 : 0
+				case .eq:
+					return evaluatePacketExpression(subPackets[0]) == evaluatePacketExpression(subPackets[1]) ? 1 : 0
+			}
+	}
+}
+
+func parsePacket(_ bits: String) -> (offset: Int, Packet) {
 	var offset = 0
 
 	let version = parseInt(bits, offset, length: 3)
@@ -37,8 +92,9 @@ func processPacket(_ bits: String) -> (Int, Int) {
 
 			} while !isLastNibble
 
-			return (offset, version)
+			let value = parseInt64(literalValueString, 0, length: literalValueString.length)
 
+			return (offset, Packet.literal(version, value: value))
 		default:
 			let lengthTypeId = parseInt(bits, offset, length: 1)
 			offset += 1
@@ -50,28 +106,28 @@ func processPacket(_ bits: String) -> (Int, Int) {
 
 					let targetOffset = offset + innerDataLength
 
-					var versionSum = 0
+					var subPackets: [Packet] = []
 					while offset < targetOffset {
 						let innerData = bits[offset..<targetOffset]
-						let (bitsRead, innerVersionSum) = processPacket(innerData)
+						let (bitsRead, subPacket) = parsePacket(innerData)
+						subPackets.append(subPacket)
 						offset += bitsRead
-						versionSum += innerVersionSum
 					}
 
-					return (offset, version + versionSum)
+					return (offset, Packet.operational(version, Action(rawValue: typeId)!, subPackets: subPackets))
 				case 1:
 					let numberOfSubPackets = parseInt(bits, offset, length: 11)
 					offset += 11
 
-					var versionSum = 0
+					var subPackets: [Packet] = []
 					for _ in 0..<numberOfSubPackets {
 						let innerData = bits[offset...]
-						let (bitsRead, innerVersionSum) = processPacket(innerData)
+						let (bitsRead, subPacket) = parsePacket(innerData)
+						subPackets.append(subPacket)
 						offset += bitsRead
-						versionSum += innerVersionSum
 					}
 
-					return (offset, version + versionSum)
+					return (offset, Packet.operational(version, Action(rawValue: typeId)!, subPackets: subPackets))
 				default:
 					abort()
 			}
@@ -81,6 +137,10 @@ func processPacket(_ bits: String) -> (Int, Int) {
 func parseInt(_ bits: String, _ start: Int, length: Int) -> Int {
 	let str = bits[start..<start + length]
 	return Int(str, radix: 2)!
+}
+func parseInt64(_ bits: String, _ start: Int, length: Int) -> Int64 {
+	let str = bits[start..<start + length]
+	return Int64(str, radix: 2)!
 }
 
 func dataToBitString(_ data: String) -> String {
