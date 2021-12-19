@@ -7,6 +7,7 @@
 //     javac 17.0.1
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -19,20 +20,41 @@ public class Main {
       }
     }
 
-    var input = lines.stream()
-      .map(l -> parseNumber(l, 0))
-      .map(ParseResult::value)
-      .toList();
-    input.forEach(n -> bindNode(n, null));
-
-
     Node result = null;
-    for (Node number : input) {
+    for (Node number : parseInput(lines)) {
       result = result == null
         ? number
         : addNumbers(result, number);
     }
-    System.out.println("Magnitude of the final sum; Part 1: " + result.getMagnitude());
+    if (result == null) {
+      System.out.println("Magnitude of the final sum; Part 1: <no input>");
+    } else {
+      System.out.println("Magnitude of the final sum; Part 1: " + result.getMagnitude());
+    }
+
+    int highestMagnitude = -1;
+    for (List<String> pair : cartesianProduct(lines)) {
+      var first = parseNumber(pair.get(0));
+      var second = parseNumber(pair.get(1));
+      var sum = addNumbers(first, second);
+      var magnitude = sum.getMagnitude();
+      if (magnitude > highestMagnitude)
+        highestMagnitude = magnitude;
+    }
+    System.out.println("Highest magnitude that can be created with two numbers; Part 2: " + highestMagnitude);
+  }
+
+  /** Since the operation potentially mutate numbers, we need to re-parse the entire input again. */
+  static List<Node> parseInput(List<String> lines) {
+    return lines.stream()
+      .map(Main::parseNumber)
+      .toList();
+  }
+
+  static Node parseNumber(String line) {
+    var n = parseNumber(line, 0).value();
+    bindNode(n, null);
+    return n;
   }
 
   static ParseResult<Node> parseNumber(String value, int offset) {
@@ -79,15 +101,25 @@ public class Main {
     }
   }
 
-  /**
-   * This is a nightmare of side effects :(
-   */
+  /** This is a nightmare of side effects :( */
   static Node addNumbers(Node a, Node b) {
     var intermediateNumber = new PairNumber(a, b);
     a.parent = intermediateNumber;
     b.parent = intermediateNumber;
     intermediateNumber.reduce();
     return intermediateNumber;
+  }
+
+  /** Joins a list to itself. */
+  static <A> List<List<A>> cartesianProduct(List<A> values) {
+    return values.stream()
+      .map(e1 ->
+        values.stream()
+          .map(e2 -> List.of(e1, e2))
+          .toList()
+      )
+      .flatMap(List::stream)
+      .toList();
   }
 }
 
