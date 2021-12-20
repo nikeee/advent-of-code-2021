@@ -23,6 +23,7 @@ readonly struct Vector
     }
     public static Vector operator -(Vector a, Vector b) => new(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
     public static Vector operator +(Vector a, Vector b) => new(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+    public static int ManhattanDistance(Vector a, Vector b) => Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y) + Math.Abs(a.Z - b.Z);
     public override string ToString() => $"{X},{Y},{Z}";
     // We don't need GetHashCode and Equals here, the defaults seem good enough:
     // https://devblogs.microsoft.com/premier-developer/performance-implications-of-default-struct-equality-in-c/
@@ -129,6 +130,11 @@ class Program
         var allBeacons = matchedScanners.SelectMany(m => m.AbsoluteBeacons).ToHashSet();
         Console.WriteLine($"Number of beacons on the entire map; Part 1: {allBeacons.Count}");
 
+        // Luckily, the LINQ syntax offers an easy way of doing a cartesian product! :)
+        var distancesBetweenScanners = from scannerA in matchedScanners
+                                       from scannerB in matchedScanners
+                                       select Vector.ManhattanDistance(scannerA.AbsolutePosition, scannerB.AbsolutePosition);
+        Console.WriteLine($"Largest distance between two scanners; Part 2: {distancesBetweenScanners.Max()}");
     }
 
     private static IReadOnlyDictionary<int, IReadOnlySet<Vector>> CreateBeaconTransformations(IReadOnlySet<Vector> beacons)
