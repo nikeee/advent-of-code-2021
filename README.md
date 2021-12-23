@@ -26,6 +26,7 @@ To see how to run the solutions of each individual day, look at its main source 
 | 19  | [Beacon Scanner](https://adventofcode.com/2021/day/19)          | [Link](19) | [C#](https://en.wikipedia.org/wiki/C_Sharp_(programming_language))      |                                                                        |
 | 20  | [Trench Map](https://adventofcode.com/2021/day/20)              | [Link](20) | [Rust](https://en.wikipedia.org/wiki/Rust_(programming_language))       |                                                                        |
 | 21  | [Dirac Dice](https://adventofcode.com/2021/day/21)              | [Link](21) | [Python](https://en.wikipedia.org/wiki/Python_(programming_language))   |                                                                        |
+| 22  | [Reactor Reboot](https://adventofcode.com/2021/day/22)          | [Link](22) | [V](https://vlang.io)                                                   |                                                                        |
 
 Other years years:
 - [Solutions of 2019](https://github.com/nikeee/advent-of-code-2019)
