@@ -2,18 +2,29 @@
 //     kotlinc Main.kt -include-runtime -d Main.jar
 // Run:
 //     java -jar Main.jar < input.txt
+// Version:
+//     kotlinc -version
+//     info: kotlinc-jvm 1.6.0 (JRE 11.0.13+8-Ubuntu-0ubuntu1.21.10)
 
 import java.util.*
 import kotlin.math.pow
 
 fun main() {
     val input = generateSequence(::readLine).joinToString("\n")
-    val initialState = parseMap(input)
+    val initialStatePart1 = parseMap(input)
 
-    val (_, amps, homes) = initialState
+    val minFinalStateCostPart1 = findFinalState(initialStatePart1.second, initialStatePart1.third, mutableMapOf(), Int.MAX_VALUE)
+    println("Least energy required to move amphipods to correct position; Part 1: $minFinalStateCostPart1")
 
-    val minFinalStateCost = findFinalState(amps, homes, mutableMapOf(), Int.MAX_VALUE)
-    println("Least energy required to move amphipods to correct position; Part 1: $minFinalStateCost")
+    val part2Addition = listOf("  #D#C#B#A#", "  #D#B#A#C#")
+
+    val lines = input.split("\n")
+    val inputPart2Arr = lines.slice(0..2) + part2Addition + lines.slice(3..lines.size - 1)
+    val inputPart2 = inputPart2Arr.joinToString(separator = "\n")
+    val initialStatePart2 = parseMap(inputPart2)
+
+    val minFinalStateCostPart2 = findFinalState(initialStatePart2.second, initialStatePart2.third, mutableMapOf(), Int.MAX_VALUE)
+    println("Least energy required to move amphipods to correct position with larger map; Part 2: $minFinalStateCostPart2")
 }
 
 data class StateTask(
